@@ -15,10 +15,14 @@ public class BasketMovementScriptLvl2 : MonoBehaviour
     int TimerInt;
     float timer = 30;
 
+    // Audio //
+    public AudioClip[] AudioClipArr;
+    private AudioSource audiosource;
 
     // Start is called before the first frame update
     void Start()
     {
+        audiosource = GetComponent<AudioSource>();
         txtScore.text = "Score: " + score;
     }
 
@@ -55,12 +59,14 @@ public class BasketMovementScriptLvl2 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Healthy")
         {
+            audiosource.PlayOneShot(AudioClipArr[0], 0.5f);
             score += 10;
             Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.tag == "Unhealthy")
         {
+            audiosource.PlayOneShot(AudioClipArr[1], 0.5f);
             SceneManager.LoadScene("GameLoseScene");
         }
     }
